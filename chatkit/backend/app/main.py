@@ -8,7 +8,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
 from .server import StarterChatServer
+from dotenv import load_dotenv
+import os
 
+load_dotenv()  # loads .env file
+print("OPENAI_API_KEY =", os.environ.get("OPENAI_API_KEY"))
 app = FastAPI(title="ChatKit Starter API")
 
 app.add_middleware(

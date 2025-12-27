@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse, Response, StreamingResponse
 from .server import StarterChatServer
 from dotenv import load_dotenv
 import os
+from .db import fetch_products_from_db, product_label_context
 
 load_dotenv()  # loads .env file
 print("OPENAI_API_KEY =", os.environ.get("OPENAI_API_KEY"))
@@ -37,3 +38,27 @@ async def chatkit_endpoint(request: Request) -> Response:
     if hasattr(result, "json"):
         return Response(content=result.json, media_type="application/json")
     return JSONResponse(result)
+
+@app.get("/products")
+async def get_products(category: str | None = None):
+    products = fetch_products_from_db(category_filter=category)
+    context = product_label_context()
+    
+    
+    # Print to console (VS Code terminal) for debugging
+    print("Products fetched from DB:")
+    print(products)
+
+     
+    print(context)
+    
+    return products
+
+# @app.get("/products")
+# async def get_product_labels(category: str | None = None):
+    
+#     # Print to console (VS Code terminal) for debugging
+#     print("Products labels from DB:")
+   
+    
+#     return context

@@ -4,7 +4,8 @@ import { ChatWidget } from "./components/ChatWidget";
 function App() {
   return (
     <div className="App">
-      <ChatWidget />
+      <ChatWidget
+      />
       {/* other page content */}
     </div>
   );
